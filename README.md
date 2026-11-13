@@ -51,3 +51,10 @@ Calendar validation is deliberately shallow: month and day ranges are
 checked, and 30-day months and February are checked against 30 and 29
 respectively, but full leap-year rules are not applied. A camera that
 emits `2023:02:29` will parse successfully.
+
+## Performance
+
+The window keeps a bounded buffer, so `push` is constant time and memory does not
+grow with the length of the stream. `peak` and `trough` are linear in the window
+size, which is the trade that keeps `push` cheap.
+
